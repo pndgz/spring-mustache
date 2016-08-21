@@ -36,7 +36,7 @@ public class MustacheHelper implements ResourceLoaderAware {
 
     public String buildTemplate(String templateName, Map<String, Object> model){
         String url = prefix + templateName + suffix;
-        logger.debug("MustacheHelper build template %s", url);
+        logger.debug("MustacheHelper build template {}", url);
         Mustache template = mustacheFactory.compile(mustacheTemplateLoader.getReader(url), url);
         template.execute(stringWriter, model);
         return stringWriter.toString();

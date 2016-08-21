@@ -25,13 +25,13 @@ public class MustacheTemplateLoader implements MustacheResolver {
         Resource resource = resourceLoader.getResource(resourceName);
         if (resource.exists()) {
             try {
-                logger.debug("MustacheTemplateLoader load resource %s with %s", resourceName, encoding);
+                logger.debug("MustacheTemplateLoader load resource {} with {}", resourceName, encoding);
                 return new InputStreamReader(resource.getInputStream(), encoding);
             } catch (Exception ex) {
                 logger.error(ex.getLocalizedMessage(), ex);
             }
         } else {
-            logger.error("Cannot found resource template %s", resourceName);
+            logger.error("Cannot found resource template {}", resourceName);
         }
         return null;
     }

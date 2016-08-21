@@ -48,7 +48,7 @@ public class MustacheViewResolver extends AbstractTemplateViewResolver implement
         this.setExposeRequestAttributes(true);
         final MustacheView mustacheView = (MustacheView)super.buildView(viewName);
         String templateUrl = mustacheView.getUrl();
-        logger.debug("MustacheViewResolver buildView %s", templateUrl);
+        logger.debug("MustacheViewResolver buildView {}", templateUrl);
         Mustache template = mustacheFactory.compile(mustacheTemplateLoader.getReader(templateUrl), templateUrl);
         mustacheView.setTemplate(template);
         mustacheView.setContentType(getContentType());

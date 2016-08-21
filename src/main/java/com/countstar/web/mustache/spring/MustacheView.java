@@ -35,7 +35,7 @@ public class MustacheView extends AbstractTemplateView {
                     key = (String)enums.nextElement();
                     value = globalValues.getProperty(key);
                     model.put(key, value);
-                    logger.debug("MustacheView set global property %s=%s", key, value);
+                    logger.debug("MustacheView set global property {}={}", key, value);
                 }
             }
             template.execute(writer, model);
