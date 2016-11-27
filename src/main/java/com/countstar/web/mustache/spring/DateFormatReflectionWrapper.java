@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.lang.reflect.AccessibleObject;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 /**
  * Created by gordondu on 15/8/10.
@@ -22,7 +23,7 @@ public class DateFormatReflectionWrapper extends ReflectionWrapper {
     }
 
     @Override
-    public Object call(Object[] scopes) throws GuardException {
+    public Object call(List<Object> scopes) throws GuardException {
         DateTimeFormat format = method.getAnnotation(DateTimeFormat.class);
         Object obj = super.call(scopes);
         if (format != null && obj != null) {
