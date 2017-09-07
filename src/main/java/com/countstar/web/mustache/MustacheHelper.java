@@ -19,7 +19,6 @@ public class MustacheHelper implements ResourceLoaderAware {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    private StringWriter stringWriter;
     private DefaultMustacheFactory mustacheFactory;
     private MustacheTemplateLoader mustacheTemplateLoader;
 
@@ -28,13 +27,13 @@ public class MustacheHelper implements ResourceLoaderAware {
     private String charset = "utf-8";
 
     public MustacheHelper() {
-        stringWriter = new StringWriter();
         mustacheTemplateLoader = new MustacheTemplateLoader();
         mustacheFactory = new DefaultMustacheFactory(mustacheTemplateLoader);
         mustacheFactory.setObjectHandler(new DateFormatReflectionObjectHandler());
     }
 
     public String buildTemplate(String templateName, Map<String, Object> model){
+        StringWriter stringWriter = new StringWriter();
         String url = prefix + templateName + suffix;
         logger.debug("MustacheHelper build template {}", url);
         Mustache template = mustacheFactory.compile(mustacheTemplateLoader.getReader(url), url);
