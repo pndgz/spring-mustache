@@ -2,12 +2,54 @@ group 'com.countstar'
 version '1.0.3'
 
 apply plugin: 'java'
+apply plugin: 'maven-publish'
 
 sourceCompatibility = 1.5
 
 repositories {
     mavenCentral()
 }
+
+task sourceJar(type: Jar) {
+    file('build/libs/spring-mustache-1.0.3-sources.jar')
+}
+
+configurations {
+    archives
+}
+
+task archivesJar(type: Jar) {
+    file('build/libs/spring-mustache-1.0.3.jar')
+}
+
+publishing {
+    repositories {
+        maven {
+            url releaseRepositoryUrl
+            credentials {
+                username 'deployment'
+                password 'deployment123'
+            }
+        }
+    }
+    publications {
+        mavenJava(MavenPublication) {
+            groupId 'com.countstar'
+            artifactId 'spring-mustache'
+            version '1.0.3'
+            artifact sourceJar {
+                classifier "sources"
+            }
+        }
+        api(MavenPublication) {
+            groupId 'com.countstar'
+            artifactId 'spring-mustache'
+            version '1.0.3'
+            artifact archivesJar
+        }
+    }
+}
+
 
 dependencies {
     //mustache5
