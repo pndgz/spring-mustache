@@ -29,12 +29,13 @@ public class MustacheViewResolver extends AbstractTemplateViewResolver implement
 
     private String charset = "utf-8";
 
+    private boolean devMode = false;
+
     public MustacheViewResolver() {
         setViewClass(MustacheView.class);
         mustacheTemplateLoader = new MustacheTemplateLoader();
         mustacheTemplateLoader.setEncoding(charset);
         mustacheFactory = new MustacheFactory(mustacheTemplateLoader);
-        mustacheFactory.setCachePartial(super.isCache());
         mustacheFactory.setObjectHandler(new DateFormatReflectionObjectHandler());
     }
 
@@ -69,6 +70,14 @@ public class MustacheViewResolver extends AbstractTemplateViewResolver implement
 
     public void setGlobalValues(Properties globalValues) {
         this.globalValues = globalValues;
+    }
+
+    public void setDevMode(boolean devMode) {
+        this.devMode = devMode;
+        if (this.devMode) {
+            mustacheFactory.setCachePartial(false);
+            super.setCacheLimit(0);
+        }
     }
 
     @Override
