@@ -9,7 +9,7 @@ import com.github.mustachejava.MustacheResolver;
  */
 public class MustacheFactory extends DefaultMustacheFactory {
 
-    private boolean cachePartial = false;
+    private boolean cachePartial = true;
 
     public MustacheFactory(MustacheResolver mustacheResolver) {
         super(mustacheResolver);

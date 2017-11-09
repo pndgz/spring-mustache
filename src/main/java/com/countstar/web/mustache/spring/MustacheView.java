@@ -8,7 +8,6 @@ import org.springframework.web.servlet.view.AbstractTemplateView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.Writer;
-import java.util.Enumeration;
 import java.util.Map;
 import java.util.Properties;
 
@@ -29,13 +28,17 @@ public class MustacheView extends AbstractTemplateView {
         final Writer writer = response.getWriter();
         try {
             if (model != null && globalValues != null) {
-                Enumeration enums = globalValues.propertyNames();
-                String key, value;
-                while (enums.hasMoreElements()) {
-                    key = (String)enums.nextElement();
-                    value = globalValues.getProperty(key);
-                    model.put(key, value);
-                    logger.debug("MustacheView set global property {}={}", key, value);
+                String value;
+                for (final String name: globalValues.stringPropertyNames()) {
+                    value = globalValues.getProperty(name);
+                    if ("true".equalsIgnoreCase(value)) {
+                        model.put(name, true);
+                    } else if ("false".equalsIgnoreCase(value)) {
+                        model.put(name, false);
+                    } else {
+                        model.put(name, value);
+                    }
+                    logger.debug("MustacheView set global property {}={}", name, value);
                 }
             }
             template.execute(writer, model);
