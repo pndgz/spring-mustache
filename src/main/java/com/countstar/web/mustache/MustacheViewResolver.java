@@ -1,9 +1,9 @@
 package com.countstar.web.mustache;
 
+import com.countstar.web.mustache.spring.MustacheFactory;
 import com.countstar.web.mustache.spring.MustacheTemplateLoader;
 import com.countstar.web.mustache.spring.MustacheView;
 import com.countstar.web.mustache.spring.DateFormatReflectionObjectHandler;
-import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +23,7 @@ public class MustacheViewResolver extends AbstractTemplateViewResolver implement
 
     private MustacheTemplateLoader mustacheTemplateLoader;
 
-    private DefaultMustacheFactory mustacheFactory;
+    private MustacheFactory mustacheFactory;
 
     private Properties globalValues;
 
@@ -33,7 +33,8 @@ public class MustacheViewResolver extends AbstractTemplateViewResolver implement
         setViewClass(MustacheView.class);
         mustacheTemplateLoader = new MustacheTemplateLoader();
         mustacheTemplateLoader.setEncoding(charset);
-        mustacheFactory = new DefaultMustacheFactory(mustacheTemplateLoader);
+        mustacheFactory = new MustacheFactory(mustacheTemplateLoader);
+        mustacheFactory.setCachePartial(super.isCache());
         mustacheFactory.setObjectHandler(new DateFormatReflectionObjectHandler());
     }
 

@@ -1,5 +1,5 @@
 group 'com.countstar'
-version '1.0.3'
+version '1.0.4'
 
 apply plugin: 'java'
 apply plugin: 'maven-publish'
@@ -7,11 +7,11 @@ apply plugin: 'maven-publish'
 sourceCompatibility = 1.5
 
 repositories {
-    mavenCentral()
+    maven { url 'http://nexus.vcloveedu.com/content/groups/public/' }
 }
 
 task sourceJar(type: Jar) {
-    file('build/libs/spring-mustache-1.0.3-sources.jar')
+    file('build/libs/spring-mustache-' + version + '-sources.jar')
 }
 
 configurations {
@@ -19,7 +19,7 @@ configurations {
 }
 
 task archivesJar(type: Jar) {
-    file('build/libs/spring-mustache-1.0.3.jar')
+    file('build/libs/spring-mustache-' + version + '.jar')
 }
 
 publishing {
@@ -27,8 +27,8 @@ publishing {
         maven {
             url releaseRepositoryUrl
             credentials {
-                username 'deployment'
-                password 'deployment123'
+                username nexusUsername
+                password nexusPassword
             }
         }
     }
@@ -36,7 +36,7 @@ publishing {
         mavenJava(MavenPublication) {
             groupId 'com.countstar'
             artifactId 'spring-mustache'
-            version '1.0.3'
+            version version
             artifact sourceJar {
                 classifier "sources"
             }
@@ -44,7 +44,7 @@ publishing {
         api(MavenPublication) {
             groupId 'com.countstar'
             artifactId 'spring-mustache'
-            version '1.0.3'
+            version version
             artifact archivesJar
         }
     }

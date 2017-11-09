@@ -1,5 +1,6 @@
 package com.countstar.web.mustache;
 
+import com.countstar.web.mustache.spring.MustacheFactory;
 import com.countstar.web.mustache.spring.MustacheTemplateLoader;
 import com.countstar.web.mustache.spring.DateFormatReflectionObjectHandler;
 import com.github.mustachejava.DefaultMustacheFactory;
@@ -19,7 +20,7 @@ public class MustacheHelper implements ResourceLoaderAware {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    private DefaultMustacheFactory mustacheFactory;
+    private MustacheFactory mustacheFactory;
     private MustacheTemplateLoader mustacheTemplateLoader;
 
     private String prefix = "/templates/";
@@ -28,7 +29,7 @@ public class MustacheHelper implements ResourceLoaderAware {
 
     public MustacheHelper() {
         mustacheTemplateLoader = new MustacheTemplateLoader();
-        mustacheFactory = new DefaultMustacheFactory(mustacheTemplateLoader);
+        mustacheFactory = new MustacheFactory(mustacheTemplateLoader);
         mustacheFactory.setObjectHandler(new DateFormatReflectionObjectHandler());
     }
 
