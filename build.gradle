@@ -1,55 +1,36 @@
-group 'com.countstar'
-version '1.0.4'
-
 apply plugin: 'java'
-apply plugin: 'maven-publish'
-
-sourceCompatibility = 1.5
+apply plugin: 'maven'
 
 repositories {
     maven { url 'http://nexus.vcloveedu.com/content/groups/public/' }
 }
 
-task sourceJar(type: Jar) {
-    file('build/libs/spring-mustache-' + version + '-sources.jar')
+
+group 'com.countstar'
+version releaseVersion
+def artifactId = "spring-mustache"
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
 }
 
-configurations {
-    archives
+artifacts {
+    archives sourcesJar
 }
 
-task archivesJar(type: Jar) {
-    file('build/libs/spring-mustache-' + version + '.jar')
-}
-
-publishing {
+uploadArchives {
     repositories {
-        maven {
-            url releaseRepositoryUrl
-            credentials {
-                username nexusUsername
-                password nexusPassword
+        mavenDeployer {
+            repository(url: releaseRepositoryUrl) {
+                authentication(userName: nexusUsername, password: nexusPassword)
             }
-        }
-    }
-    publications {
-        mavenJava(MavenPublication) {
-            groupId 'com.countstar'
-            artifactId 'spring-mustache'
-            version version
-            artifact sourceJar {
-                classifier "sources"
-            }
-        }
-        api(MavenPublication) {
-            groupId 'com.countstar'
-            artifactId 'spring-mustache'
-            version version
-            artifact archivesJar
+            pom.version = "$project.version"
+            pom.artifactId = "$artifactId"
+            pom.groupId = "$project.group"
         }
     }
 }
-
 
 dependencies {
     //mustache5
