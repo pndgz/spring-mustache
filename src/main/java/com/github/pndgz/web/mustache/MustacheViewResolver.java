@@ -1,9 +1,9 @@
-package com.countstar.web.mustache;
+package com.github.pndgz.web.mustache;
 
-import com.countstar.web.mustache.spring.MustacheFactory;
-import com.countstar.web.mustache.spring.MustacheTemplateLoader;
-import com.countstar.web.mustache.spring.MustacheView;
-import com.countstar.web.mustache.spring.DateFormatReflectionObjectHandler;
+import com.github.pndgz.web.mustache.spring.MustacheFactory;
+import com.github.pndgz.web.mustache.spring.MustacheTemplateLoader;
+import com.github.pndgz.web.mustache.spring.MustacheView;
+import com.github.pndgz.web.mustache.spring.DateFormatReflectionObjectHandler;
 import com.github.mustachejava.Mustache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

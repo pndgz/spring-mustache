@@ -1,4 +1,4 @@
-package com.countstar.web.mustache.spring;
+package com.github.pndgz.web.mustache.spring;
 
 import com.github.mustachejava.ObjectHandler;
 import com.github.mustachejava.reflect.Guard;

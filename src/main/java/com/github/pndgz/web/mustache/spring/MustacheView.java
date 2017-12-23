@@ -1,4 +1,4 @@
-package com.countstar.web.mustache.spring;
+package com.github.pndgz.web.mustache.spring;
 
 import com.github.mustachejava.Mustache;
 import org.slf4j.Logger;
